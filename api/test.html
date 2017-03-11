@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Test</title>
+</head>
+<body>
+    <script>
+
+        let currentPos = {
+        	lat:"49.6001358",
+        	lon:"6.113006899999999"
+
+        };
+
+        let test = null;
+        function BusArret(lat, lon, distance, name) {
+
+        	this.Lat = lat;
+        	this.Lon = lon;
+        	this.Distance = distance;
+        	this.Name = name;
+
+
+        }
+        function init() {
+
+        	let req = new XMLHttpRequest();
+        	req.open("POST", "end-file.php");
+        	req.addEventListener("load", function(e){
+        		let response = JSON.parse(e.target.response);
+                console.log(response["features"].length);
+                if(response["features"].length <= 0){
+                	//no positions found;
+                    console.log("NO POSITIONS FOUND");
+                	return;
+                }
+                let busstops = response["features"];
+                console.log(busstops[0]);
+                test = busstops[0];
+
+                let array = [];
+                for(let i = 0 ; i < busstops.length;i++) {
+					array.push(new BusArret(busstops[i].geometry.coordinates[1],busstops[i].geometry.coordinates[0],busstops[i].properties.distance,busstops[i].properties.name));
+				}
+				console.log(JSON.stringify(array));
+            });
+        	let data = new FormData();
+        	data.append("lat", currentPos.lat);
+        	data.append("lon", currentPos.lon);
+        	req.send(data);
+
+        }
+
+        addEventListener("load", init);
+    </script>
+</body>
+</html>

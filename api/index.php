@@ -47,12 +47,12 @@ function getValuesByLocation($loc) {
     }
     return null;
 }
-/*
+
 if(isset($_POST["commun"]) || is_null($_POST["commun"])) {
     echo 0;
     exit;
-}*/
+}
 //var_dump(getValuesByLocation("Colmar-Berg"));
 //echo "<pre>" . print_r(getValuesByLocation("Colmar-Berg")) . "</pre>";
-echo json_encode(getValuesByLocation("Junglinster"));
+echo json_encode(getValuesByLocation($_POST["commun"]));
 ?>
