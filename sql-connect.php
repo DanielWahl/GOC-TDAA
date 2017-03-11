@@ -16,7 +16,5 @@ if(mysqli_connect_errno()) {
     echo mysqli_error($con);
     exit;
 
-} else {
-    echo "FUNZT!";
-
 }
+
