@@ -14,20 +14,45 @@ require_once(BASEDIR . "/../Utils/objects/Location.php");
 function getValuesByLocation($loc) {
     GLOBAL $con;
 
-    if ($stmt = mysqli_prepare($con,"SELECT Name, dtOne, dtTwo, dtTree FROM tblValues WHERE dtLocation LIKE ?")) {
+    if ($stmt = mysqli_prepare($con,"SELECT COMMUNE_NOM, POPULATION, COMMUNE_LOYER_APPART_mq, COMMUNE_LOYER_MAISON_mq FROM goc.tblValues WHERE COMMUNE_NOM LIKE ?")) {
         mysqli_stmt_bind_param($stmt, "s", $loc);
 
         mysqli_stmt_execute($stmt);
 
-        mysqli_stmt_bind_result($stmt, $name, $one, $two, $tree);
+        if(mysqli_stmt_errno($stmt)){
+
+            echo mysqli_stmt_error($stmt);
+            return null;
+
+        }
+
+        mysqli_stmt_bind_result($stmt, $name, $population, $loyerAppartParMQ, $loyerMaisonParMQ);
 
         /*while(mysqli_stmt_fetch($stmt)) {
 
         }*/
 
         mysqli_stmt_fetch($stmt);
-
-        return new Location($name, $one, $two, $tree);
+        mysqli_stmt_store_result($stmt);
+        /*if(mysqli_stmt_num_rows($stmt) <= 0){
+            echo "NIX DA";
+            return null;
+        }*/
+        //return $population;
+        return new Location($name, $population, $loyerAppartParMQ, $loyerMaisonParMQ);
     }
 
+    if(mysqli_errno($con)){
+        echo mysqli_error($con);
+    }
+    return null;
 }
+/*
+if(isset($_POST["commun"]) || is_null($_POST["commun"])) {
+    echo 0;
+    exit;
+}*/
+//var_dump(getValuesByLocation("Colmar-Berg"));
+//echo "<pre>" . print_r(getValuesByLocation("Colmar-Berg")) . "</pre>";
+echo json_encode(getValuesByLocation("Junglinster"));
+?>

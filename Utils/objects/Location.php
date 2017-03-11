@@ -9,17 +9,19 @@
 class Location
 {
     public $Name;
-    public $var1;
-    public $var2;
-    public $var3;
+    public $Population;
+    public $LoyerAppartParMQ;
+    public $LoyerMaisonParMQ;
 
-    public function __construct($Name, $var1, $var2, $var3)
+    public function __construct($Name, $population, $loyerAppartParMQ, $loyerMaisonParMQ)
     {
         $this->Name = $Name;
-        $this->var1 = $var1;
-        $this->var2 = $var2;
-        $this->var3 = $var3;
+        $this->Population = $population;
+        $this->LoyerAppartParMQ = $loyerAppartParMQ;
+        $this->LoyerMaisonParMQ= $loyerMaisonParMQ;
 
     }
 
 }
+
+?>
