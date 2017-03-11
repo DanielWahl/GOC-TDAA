@@ -6,6 +6,8 @@
  * Time: 14:33
  */
 
+require_once ("sql-login.php");
+
 $con = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
 
 if(mysqli_connect_errno()) {
