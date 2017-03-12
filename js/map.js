@@ -1,5 +1,6 @@
 var info = document.getElementById("info");
 var airinfo = document.getElementById("airinfo");
+var parkinfo = document.getElementById("parkinfo");
 var latitude;
 var longitude;
 var address;
@@ -176,7 +177,7 @@ function getNrOfBusses() {
 			arBusses.push(arBussesTemp[i]);
 	}
 
-	info.innerHTML = "Ed sin <u>" + arBusses.length + "</u> Buslinnen an engem Radius vun 500m.";
+	info.innerHTML = "Et sin <u>" + arBusses.length + "</u> Buslinnen am Ëmkrees vun 500m.";
 }
 
 function isAlreadyExist(bus) {
@@ -253,6 +254,8 @@ function getParkings() {
         xml.open("POST", "api/getNearCarParks.php");
         xml.addEventListener("load", function(e) {
 
+            parkinfo.innerHTML = "Folgend Parkingen sin am Ëmkrees vun 1km: ";
+            
         	let parkings = JSON.parse(e.target.response);
         	for(let p = 0; p < parkings.length; p++) {
 
@@ -285,6 +288,7 @@ function getParkings() {
 					}
 				})(marker, p));
 
+                parkinfo.innerHTML += parkings[p].Name+ "; ";
 			}
 
 		});
@@ -320,24 +324,39 @@ function getDataAir() {
 		arValues = [airData.pm10, airData.no2, airData.o3, airData.so2, airData.co];
 
 		var indexperc = 1;
+        var count = 0;
 
 		//  (1-((airData.pm10-25)/(75-25))) * (1-((airData.no20-20)/(70-20))) * (1-((airData.o3-40)/(180-40))) * (1-(airData.so2/60)) * (1-(airData.co/200));
-
-		if(airData.pm10!=null){
-			indexperc *= (1-((airData.pm10-25)/(75-25)));
-		}else if(airData.no2!=null){
-			indexperc *= (1-((airData.no20-20)/(70-20)));
-		}else if(airData.o3!=null){
-			indexperc *= (1-((airData.o3-40)/(180-40)));
-		}else if(airData.so2!=null){
-			indexperc *= (1-(airData.so2/60));
-		}else if(airData.co!=null){
-			indexperc *= (1-(airData.co/200));
-		}else {
-			//indexperc *= (1-((airData.pm10-25)/(75-25))) * (1-((airData.no20-20)/(70-20))) * (1-((airData.o3-40)/(180-40))) * (1-(airData.so2/60)) * (1-(airData.co/200));
+        
+		if(airData.pm10!=undefined){
+			indexperc += (1-((airData.pm10)/(50-0)));
+            count++;
+            console.log("1" +airData.pm10);
 		}
+        if(airData.no2!=undefined){
+			indexperc += (1-((airData.no2-20)/(70-20)));
+            count++;
+            console.log("2" +airData.no2);
+		}
+        if(airData.o3!=undefined){
+			indexperc += (1-((airData.o3-40)/(180-40)));
+            count++;
+            console.log("3" +airData.o3);
+		}
+        if(airData.so2!=undefined){
+			indexperc += (1-(airData.so2/60));
+            count++;
+            console.log("4" +airData.so2);
+		}
+        if(airData.co!=undefined){
+			indexperc += (1-(airData.co/100));
+            count++;
+            console.log("5" +airData.co);
+		}/*
+        console.log(typeof indexperc);
+        console.log(indexperc);*/
 
-		var index   = (indexperc != 1       ? "Den Loftqualitéits-index ass: " + indexperc + "%<br>"          :"error");
+		var index   = (indexperc != 1       ? "Den Loftqualitéits-index ass: " + Math.round((100-((indexperc/count)*10))) + "%<br>"          :"error");
 
 		var pm10 = (airData.pm10 != null ? "Den PM10 Gehalt ass: " + airData.pm10 + " µg/m^3<br>" : "");
 		var no2 = (airData.no2 != null ? "Den NO2 Gehalt ass: " + airData.no2 + " µg/m^3<br>" : "");

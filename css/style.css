@@ -243,6 +243,11 @@ input[type=button]:hover {
     text-align: center;
 }
 
+.mediumcontent {
+    width:60%;
+    margin: 0 auto;
+}
+
 #map {
     width:60%;
     height:100%;
@@ -311,6 +316,7 @@ footer .middletext a {
     
     .break {
         display:block;
+        height:50px;
     }
     
     #logonav {
@@ -376,8 +382,14 @@ footer .middletext a {
         margin-top:40px;
     }
     
+
+    .mediumcontent {
+        width:90%;
+        margin: 0 auto;
+    }
+    
     #logobig {
-        display:none;
+        
     }
     
     section #one .break {
@@ -412,3 +424,11 @@ footer .middletext a {
 
 
 
+
+section #one .middletext a {
+    color:grey;
+}
+
+section #one .middletext a:hover {
+    color:lightblue;
+}

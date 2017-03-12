@@ -11,7 +11,9 @@ if (!isset($_COOKIE["Deng_Mamm_An_Den_Daniel_Sein_Poul"])) {
 
 <div id="cookie_alert">
     <span onclick="clickCookieAlert()" class="closeButton">&times;</span>
-    <p>Diese Seite benutzt Cookies! Wenn du diese Seite weiterhin benutzt zählt das als ein Einverständnis zu den Cookie Richtlinien usw...</p>
+    <p>
+        Wir verwenden Cookies, um Inhalte zu personalisieren. Wenn du auf unsere Webseite klickst oder hier navigierst, stimmst du der Erfassung von Informationen durch Cookies auf und außerhalb von Facebook zu. Weitere Informationen zu unseren Cookies und dazu, wie du die Kontrolle darüber behältst, findest du hier: <a href="impressum.php">Cookie-Richtlinie</a>.
+    </p>
 </div>
 
 <script>

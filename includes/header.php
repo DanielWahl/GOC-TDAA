@@ -14,7 +14,7 @@
                     <li>&nbsp;&nbsp;</li>
                     <li><a href="api.php">API</a></li>
                     <li>&nbsp;&nbsp;</li>
-                    <li><a href="contact.php">CONTACT</a></li>
+                    <li><a href="impressum.php">IMPRESSUM</a></li>
                 </ul>
             </nav>
         </div>
