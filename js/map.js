@@ -265,7 +265,7 @@ var busData;
 var airData;
     function getDataAir() {
         var xml = new XMLHttpRequest();
-        xml.open("POST", "api/weather_quality.php");
+        xml.open("POST", "api/getNearestAirStation.php");
         xml.addEventListener("load", function (e){
             //console.log(e.target.response);
             //info.innerHTML = e.target.response;
