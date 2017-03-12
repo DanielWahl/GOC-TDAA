@@ -8,13 +8,15 @@
 
 if (!isset($_COOKIE["Deng_Mamm_An_Den_Daniel_Sein_Poul"])) {
 ?>
-
+<!--
 <div id="cookie_alert">
-    <span onclick="clickCookieAlert()" class="closeButton">&times;</span>
-    <p>
-        Wir verwenden Cookies, um Inhalte zu personalisieren. Wenn du auf unsere Webseite klickst oder hier navigierst, stimmst du der Erfassung von Informationen durch Cookies auf und außerhalb von Facebook zu. Weitere Informationen zu unseren Cookies und dazu, wie du die Kontrolle darüber behältst, findest du hier: <a href="impressum.php">Cookie-Richtlinie</a>.
-    </p>
-</div>
+    <span onclick="clickCookieAlert()" class="closeButton" style="margin-left: 90%; margin-top: 10px; font-size: 45px; cursor: pointer; position: relative;">&times;</span>
+    <div style="width:80%; margin: 0 auto;">
+        <p>
+            Wir verwenden Cookies, um Inhalte zu personalisieren. Wenn du auf unsere Webseite klickst oder hier navigierst, stimmst du der Erfassung von Informationen durch Cookies auf und außerhalb von Facebook zu. Weitere Informationen zu unseren Cookies und dazu, wie du die Kontrolle darüber behältst, findest du hier: <a href="impressum.php">Cookie-Richtlinie</a>.
+        </p>
+    </div>
+</div>-->
 
 <script>
 

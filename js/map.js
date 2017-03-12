@@ -254,9 +254,9 @@ function getParkings() {
         xml.open("POST", "api/getNearCarParks.php");
         xml.addEventListener("load", function(e) {
 
-            parkinfo.innerHTML = "Folgend Parkingen sin am Ëmkrees vun 1km: ";
             
         	let parkings = JSON.parse(e.target.response);
+        	parkinfo.innerHTML = "";
         	for(let p = 0; p < parkings.length; p++) {
 
 				var infowindow = new google.maps.InfoWindow({
@@ -289,6 +289,9 @@ function getParkings() {
 				})(marker, p));
 
                 parkinfo.innerHTML += parkings[p].Name+ "; ";
+			}
+			if(parkings.length > 0){
+				parkinfo.innerHTML = "Folgend Parkingen sin am Ëmkrees vun 1km: " + parkinfo.innerHTML;
 			}
 
 		});
