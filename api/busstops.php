@@ -12,7 +12,7 @@ DEFINE("BUSSTOP_SOURCE", "https://api.tfl.lu/v1/StopPoint/around/{lon}/{lat}/{ra
 DEFINE("BUS_SOURCE", "https://api.tfl.lu/v1/Line/Mode/bus/Route");
 require_once (BASEDIR . "/../Utils/objects/BusStop.php");
 
-/*
+
 if(!isset($_POST["lat"]) && !isset($_POST["lon"])) {
     echo 1;
     exit;
@@ -20,10 +20,11 @@ if(!isset($_POST["lat"]) && !isset($_POST["lon"])) {
 
 $latitude = $_POST["lat"];
 $longitude = $_POST["lon"];
-*/
 
-$latitude = 49.6001358;
-$longitude = 6.113006899999999;
+
+
+/*$latitude = 49.6001358;
+$longitude = 6.113006899999999;*/
 $busstop_source = BUSSTOP_SOURCE;
 $busstop_source = str_replace("{lon}",$longitude, $busstop_source);
 $busstop_source = str_replace("{lat}",$latitude, $busstop_source);

@@ -6,7 +6,7 @@ var mainlat;
 var mainlng;
       
 
-    function updateAll(){
+    function updateAll() {
         initStreetView();
        
         getNrOfBusses();
@@ -169,20 +169,33 @@ var busData;
         
     }
 
+
+    var arBusses = [];
     function getNrOfBusses(){
         if(busData == null)
-            getData()
-        //console.log(busData);
+            getData();
         
         var counter;
-        var arBusses = new Array(200);
+        var arBussesTemp = [];
             
         for(var i=0; i<busData.length; i++){
-            for(var j=0; j<busData[i].Busses.length; j++){
-                arBusses[(i+1)*j] = counterbusData[i].Busses[j];
-            }
+            for(var j=0; j<busData[i].Busses.length; j++)
+                arBussesTemp.push(counterbusData[i].Busses[j]);
+        }
+        
+        
+        for(var i=0; i<arBussesTemp.length; i++){
+            if(!isAlreadyExist(arBussesTemp[i]))
+                arBusses.push(arBussesTemp[i]);
         }
             
-            
-        info.innerHTML = "Esouvill Busser fueren an engem Ëmfeld vun 500m: " + busData;
+        info.innerHTML = "Esouvill Busser fueren an engem Ëmfeld vun 500m: " + arBusses.length;
+    }
+
+    function isAlreadyExist(bus){
+        for(var i=0; i<arBusses.length; i++){
+            if(arBusses[i] == bus)
+                return true;
+        }
+        return false;
     }
