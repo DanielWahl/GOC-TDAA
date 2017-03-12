@@ -1,0 +1,393 @@
+/************************************************************************
+*               GOC - OPEN DATA CHALLENGE                               *
+*               Code by Team TDAA                                       *
+*               CSS by Daniel & Alex                                    *
+*                                                                       *
+*************************************************************************/
+
+ /***   MAIN_open***/
+html, body {
+    margin: 0 auto;
+    background-color:white;
+    font-family:'Raleway', Quicksand, sans-serif;
+}
+
+.clear {
+    clear:both;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+h2 {
+    
+}
+
+p { 
+    
+}
+
+a {
+    text-decoration: none;
+    color:white; 
+    border: none;
+    outline: none;
+    outline-style: none;
+}
+
+a:hover {
+    color:gainsboro;
+}
+
+#main {
+    
+}
+
+.break {
+    display:none;
+}
+
+
+ /***   MAIN_close      ***/
+
+
+ /***   HEADER_open     ***/
+
+#logonav {
+    float:left;
+    /*background: url('../images/logo.PNG');*/
+    height:60px;
+    width:auto;
+    /*background-size: auto;
+    margin-top:5px;*/
+    margin-left:10%;
+    display: none;
+}
+    /***   NAVI_open       ***/
+
+
+header {
+    top:0;
+    left:0;
+    width:100%;
+    height:60px;
+    border-bottom: 1px solid lightgrey;
+    background-color: lightcoral;
+    background: #f7b4af; /* Old browsers */
+    background: -moz-linear-gradient(bottom,  #f7b4af 0%, #f49792 47%, #f07872 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(bottom,  #f7b4af 0%,#f49792 47%,#f07872 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to top,  #f7b4af 0%,#f49792 47%,#f07872 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7b4af', endColorstr='#f07872',GradientType=0 ); /* IE6-9 */
+
+}
+
+#navigation {
+    background-color:transparent;
+    display: block;
+    float:right;
+    border: none;
+    height:100%;
+    width: 100%;
+}
+
+nav {
+    display:block;
+    border:none;
+    outline: none;
+    /*position:absolute;*/
+    margin: 0 auto;
+    margin-top: 15px;
+    /*padding-right: 10px;*/
+    text-align: center;
+}
+
+nav ul {
+    display: inline;
+    border:none;
+    outline: none;
+    padding: 0;
+    font-family:'Raleway', Quicksand, sans-serif;
+}
+
+nav ul li {
+    display: inline;
+    border:none;
+    outline: none;
+    text-decoration: none;
+    font-size: 25px;
+    /*margin-left: 10px;*/
+}
+
+#toggleopen{
+    display: none;
+}
+
+#toggleclose {
+    display: none;
+}
+
+
+
+
+    /***   NAVI_close      ***/
+
+ /***   HEADER_close    ***/
+
+    /***    SECTIONS_open   ***/
+
+section {
+    width: 100%;
+    left:0;
+    margin:0 auto;
+    padding: 10px 0 10px 0;
+}
+
+#one {
+    background-color: white;
+}
+
+#logobig {
+    text-align: center;
+    /*background: url('../images/logo.PNG');*/
+    height:150px;
+    width:auto;
+    /*background-size: auto;
+    margin-top:5px;*/
+    margin: 0 auto;
+    display: block;
+}
+
+input[type=text] {
+    width: 98%;
+    height:30px;
+    border-radius: 4px;
+    background-color:white;
+    border:1px solid rgb(3, 125, 192);
+    margin: 3px;
+    padding-left:6px;
+    color: #aaaaaa;
+}
+
+input[type=text]:focus {
+    width: 98%;
+    height:30px;
+    border-radius: 4px;
+    background-color:white;
+    border:1px solid rgb(3, 125, 192);
+    margin: 3px;
+    padding-left:6px;
+    color: #aaaaaa;
+}
+
+input[type=button] {
+    width: 40%;
+    height:30px;
+    background-color:white;
+    border:1px solid rgb(3, 125, 192);
+    margin: 3px;
+    padding-left:6px;
+    color: #aaaaaa;
+    -webkit-appearance: none;
+}
+
+input[type=button]:hover {
+    width: 40%;
+    height:30px;
+    background-color:skyblue;
+    border:1px solid rgb(3, 125, 192);
+    margin: 3px;
+    padding-left:6px;
+    color: white;
+}
+
+#two {
+    background-color: lightblue;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87e0fd+0,53cbf1+40,05abe0+100;Blue+3D+%23+16 */
+    background: #87e0fd; /* Old browsers */
+    background: -moz-linear-gradient(top,  #87e0fd 0%, #53cbf1 40%, #05abe0 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #87e0fd 0%,#53cbf1 40%,#05abe0 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #87e0fd 0%,#53cbf1 40%,#05abe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=0 ); /* IE6-9 */
+
+}
+
+#three {
+    background-color:lightgrey;
+    height:250px;
+}
+
+
+#four {
+    background-color:white;
+    height:250px;
+}
+
+.middletext {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#map {
+    width:60%;
+    height:100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top:-250px;
+    z-index:10;
+}
+#streetview{
+    width: 60%;
+    height:100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top:-250px;
+    z-index:10;
+}
+
+.overlay {
+    background: transparent;/*rgba(0,255,0,0.2); */
+    position: relative; 
+    width: 60%;
+    height: 100%; 
+    margin: 0 auto;
+    z-index:99;
+}
+        
+
+    
+    /***    SECTIONS_close  ***/
+
+ /***   FOOTER_open     ***/
+
+footer {
+    background-color:lightgrey;
+    bottom:0;
+    height:auto;
+    width: 100%;
+    padding: 10px 0 10px 0;
+}
+
+footer .middletext a {
+    color:black;
+}
+
+ /***   FOOTER_close    ***/
+
+ /***   MEADIA_open     ***/
+
+@media only screen and (max-width:60000px) {
+    
+}
+
+@media only screen and (max-width:720px) {
+
+    header {
+        position: fixed;
+        z-index: 101;
+        height: 60px;
+    }
+    
+    .break {
+        display:block;
+    }
+    
+    #logonav {
+        display:block
+    }
+    
+    nav   {
+        height:100%;
+        min-width:100%;
+        
+        position: relative;
+        opacity:0.9;
+        z-index:103;
+        overflow-y:  auto;
+        margin-top: 0px;
+        border:none;
+        display: none;
+        
+    }
+    #navigation {
+        background-color:transparent;
+        display: block;
+        margin: 0 auto;
+        border: none;
+        height:100%;
+        min-width: 100%;
+        width: 100%;
+    }
+    nav ul { }
+    nav ul li {
+        display: block;
+        text-align: center;
+        font-size: 28px;
+        padding-left:0;
+        margin: 0 auto;
+    }
+    #toggleopen {
+        background-image: url('../images/toggle_open.png');
+        float:right;
+        width: 29px;
+        height:22px;
+        
+        margin-right:10px;
+        margin-top:20px;
+        display:block;
+        /*position:absolute;*/
+        z-index:103;
+    }
+    #toggleclose {
+        font-size: 36px;
+        margin-top:15px;
+        display:none;
+        float:right;
+        font-family: Quicksand, sans-serif;
+        font-weight: normal;
+        z-index:103;
+        margin-right:10px;
+        margin-top:10px;
+        color:white;
+    }
+    
+    section #one {
+        margin-top:40px;
+    }
+    
+    #logobig {
+        display:none;
+    }
+    
+    section #one .break {
+        /*height:80px;*/
+    }
+    
+    #map {
+        width:100%;
+        height:110%;
+        padding: 0;
+        margin-top: -260px;
+    }
+    
+    #streetview {
+        width:100%;
+        height:110%;
+        padding: 0;
+        margin-top:-255px;
+    }
+    
+    .overlay {
+        width:90%;
+    }
+
+}
+
+
+ /***   MEADIA_close    ***/
+
+
+
+
+
+
