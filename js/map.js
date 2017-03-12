@@ -20,7 +20,7 @@ var map;
                 info.innerHTML = "It may take some time";
                 
                 if (!navigator.geolocation){
-                  info.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+                  info.innerHTML = "<p>Geolocation gëtt ned vun äerem Browser ennerstezt!</p>";
                   return;
                 }
                 
@@ -149,7 +149,7 @@ var busData;
     function getDataBus() {
         
         var xml = new XMLHttpRequest();
-        xml.open("POST", "api/busstops.php");
+        xml.open("POST", "api/getBusstopsAndBusses.php");
         xml.addEventListener("load", function (e){
             //console.log(e.target.response);
             //info.innerHTML = e.target.response;
@@ -283,7 +283,7 @@ var airData;
             var co      = (airData.co!=null     ? "Den CO Gehalt ass: "     + airData.co    + " mg/m^3<br>"   :"");
 
 
-            document.getElementById("airinfo").innerHTML = pm10 + no2 + o3 + so2 + co;
+            airinfo.innerHTML = pm10 + no2 + o3 + so2 + co;
             
         });
         var data = new FormData();

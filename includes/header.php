@@ -2,7 +2,7 @@
         
         <div id="navigation">
             
-            <img src="images/logo.png" id="logonav" />
+            <!--<img src="images/logo.png" id="logonav" />-->
             <div id="toggleopen"  onclick="expand();"></div>
             <div id="toggleclose" onclick="expand();">&times;</div>
             <div class="clear"></div>
