@@ -1,17 +1,20 @@
-var info = document.getElementById("info");
-var airinfo = document.getElementById("airinfo");
-var parkinfo = document.getElementById("parkinfo");
+var info 		= document.getElementById("info");
+var airinfo 	= document.getElementById("airinfo");
+var parkinfo 	= document.getElementById("parkinfo");
 var latitude;
 var longitude;
 var address;
 var mainlat;
 var mainlng;
 var map;
+var busData;
+var mapSV;
+var arBusses = [];
+var airData;
 
 
 function updateAll() {
 	initStreetView();
-
 	getDataBus();
 	getDataAir();
 }
@@ -27,19 +30,18 @@ function geoFindMe() {
 
 
 	function success(position) {
-		latitude = position.coords.latitude; //49.5708937;
+		latitude  = position.coords.latitude; //49.5708937;
 		longitude = position.coords.longitude; //6.152702999999974;
-		mainlat = latitude;
-		mainlng = longitude;
+		mainlat   = latitude;
+		mainlng   = longitude;
 
-		//output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 		document.getElementById('latlng').value = latitude + "," + longitude;
 		document.getElementById('submit').click();
 
 
 		resetMap();
 		resetStreetView();
-		//info.innerHTML = adress+"";
+
 	}
 
 	function error() {
@@ -58,18 +60,15 @@ function initMap() {
 
 
 function resetMap() {
-	//var lat = mainlat;
-	//var lng = mainlng;
 
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 10,
 		center: {lat: mainlat, lng: mainlng}
 	});
-	var geocoder = new google.maps.Geocoder();
-	var infowindow = new google.maps.InfoWindow();
-	//document.getElementById('submit').addEventListener('click', function() {
+	var geocoder 	= new google.maps.Geocoder();
+	var infowindow 	= new google.maps.InfoWindow();
 	geocodeLatLng(geocoder, map, infowindow);
-	//});
+
 	updateAll();
 }
 
@@ -88,22 +87,10 @@ function geocodeLatLng(geocoder, map, infowindow) {
 					map: map
 				});
 				infowindow.setContent(results[1].formatted_address);
-				address = results[0].address_components[2].long_name + "";//.formatted_address.address_components[1].long_name;
-				//address = results[0].address_components[1].long_name;
-//                for(var i=0; i<results.length; i++){
-//                    console.log("i: "+i);
-//                    for(var j=0; j<results[i].address_components.length; j++){
-//                        
-//                        console.log("j:"+ j +" --> ");
-//                       console.log(results[i].address_components[j]);
-//                    }
-//                    console.log("\n\n\n\n");
-//                }
-				//info.innerHTML = address+"";
+				address = results[0].address_components[2].long_name + "";
 				infowindow.open(map, marker);
-			} else {
+			} else
 				window.alert('No results found');
-			}
 		} else {
 			window.alert('Geocoder failed due to: ' + status);
 		}
@@ -111,10 +98,10 @@ function geocodeLatLng(geocoder, map, infowindow) {
 }
 
 
-var panorama;
+
 function initStreetView() {
 
-	panorama = new google.maps.StreetViewPanorama(
+	mapSV = new google.maps.StreetViewPanorama(
 		document.getElementById('streetview'),
 		{
 			position: {lat: mainlat, lng: mainlng},
@@ -126,7 +113,7 @@ function initStreetView() {
 function resetStreetView() {
 	var lat = mainlat;
 	var lng = mainlng;
-	panorama = new google.maps.StreetViewPanorama(
+	mapSV = new google.maps.StreetViewPanorama(
 		document.getElementById('streetview'),
 		{
 			position: {lat: lat, lng: lng},
@@ -137,7 +124,7 @@ function resetStreetView() {
 }
 
 
-var busData;
+
 function getDataBus() {
 
 	var xml = new XMLHttpRequest();
@@ -160,7 +147,7 @@ function getDataBus() {
 }
 
 
-var arBusses = [];
+
 
 function getNrOfBusses() {
 
@@ -191,11 +178,6 @@ function isAlreadyExist(bus) {
 
 function setMarkers() {
 
-	/*var map = new google.maps.Map(document.getElementById('map'), {
-	 zoom: 14,
-	 center: {lat: mainlat, lng: mainlng}
-	 });*/
-
 	for (var i = 0; i < busData.length; i++) {
 		var obj = busData[i];
 		var bus = {lat: obj.Lat, lng: obj.Lon};
@@ -211,31 +193,56 @@ function setMarkers() {
 		});
 
 
-		var marker = new google.maps.Marker({
-			position: bus,
-			label: 'B',
-			map: map,
-			title: 'Busarrêt - ' + busData[i].Name
-		});
+        var marker = new google.maps.Marker({
+            position: bus,
+            label: 'B',
+            map: map,
+            title: 'Busarrêt - ' + busData[i].Name
+        });
+
+        var markerSV = new google.maps.Marker({
+            position: bus,
+            label: 'B',
+            map: mapSV,
+            title: 'Busarrêt - ' + busData[i].Name
+        });
 //              marker.addListener('click', function() {
 //                infowindow.open(map, marker);
 //              });
-		google.maps.event.addListener(marker, 'click', (function (marker, i) {
-			return function () {
-				infowindow.setContent('<div id="content">' +
-					'<div id="siteNotice">' +
-					'</div>' +
-					'<h1 id="firstHeading" class="firstHeading">' + busData[i].Name + '</h1>' +
-					'<div id="bodyContent">' +
-					'<p>Buslinnen op desem Arrêt: ' + bussesToString(busData[i].Busses) +
-					'</p>' +
-					'<p>Distance: ' + Math.round(busData[i].Distance) + "m" +
-					'</p>' +
-					'</div>' +
-					'</div>');
-				infowindow.open(map, marker);
-			}
-		})(marker, i));
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infowindow.setContent('<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h1 id="firstHeading" class="firstHeading">' + busData[i].Name + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p>Buslinnen op desem Arrêt: ' + bussesToString(busData[i].Busses) +
+                    '</p>' +
+                    '<p>Distance: ' + Math.round(busData[i].Distance) + "m" +
+                    '</p>' +
+                    '</div>' +
+                    '</div>');
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+
+        google.maps.event.addListener(markerSV, 'click', (function (markerSV, i) {
+            return function () {
+                infowindow.setContent('<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h1 id="firstHeading" class="firstHeading">' + busData[i].Name + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p>Buslinnen op desem Arrêt: ' + bussesToString(busData[i].Busses) +
+                    '</p>' +
+                    '<p>Distance: ' + Math.round(busData[i].Distance) + "m" +
+                    '</p>' +
+                    '</div>' +
+                    '</div>');
+                infowindow.open(map, markerSV);
+            }
+        })(markerSV, i));
+
 		var styles = [{
 			"featureType": "transit.station.bus",
 			"stylers": [{"visibility": "off"}]
@@ -278,7 +285,7 @@ function getParkings() {
 							'</div>' +
 							'<h1 id="firstHeading" class="firstHeading">' + parkings[p].Name + '</h1>' +
 							'<div id="bodyContent">' +
-							'<p>Et sin  ' + parkings[p].FreeParkings + " vun " + parkings[p].TotalParkings + " Parkingen frei!" +
+							'<p>Et sin  ' + parkings[p].FreeParkings + ' vun ' + parkings[p].TotalParkings + ' Parkingen frei!' +
 							'</p>' +
 								'<p>Distance: ' + Math.round(parkings[p].Distance) + "m" +
 								'</p>' +
@@ -304,6 +311,8 @@ function getParkings() {
 }
 function bussesToString(busses) {
 	let string = "";
+	busses.sort();
+
 	for (let i = 0; i < busses.length; i++) {
 
 		string += (string == "" ? "" : ", ") + busses[i];
@@ -313,15 +322,11 @@ function bussesToString(busses) {
 }
 
 
-var airData;
+
 function getDataAir() {
 	var xml = new XMLHttpRequest();
 	xml.open("POST", "api/getNearestAirStation.php");
 	xml.addEventListener("load", function (e) {
-		//console.log(e.target.response);
-		//info.innerHTML = e.target.response;
-		//console.log(jQuery.type(e.target.response));
-		//console.log(JSON.parse(e.target.response));
 		airData = JSON.parse(e.target.response);
 
 		arValues = [airData.pm10, airData.no2, airData.o3, airData.so2, airData.co];
@@ -332,40 +337,33 @@ function getDataAir() {
 		//  (1-((airData.pm10-25)/(75-25))) * (1-((airData.no20-20)/(70-20))) * (1-((airData.o3-40)/(180-40))) * (1-(airData.so2/60)) * (1-(airData.co/200));
         
 		if(airData.pm10!=undefined){
-			indexperc += (1-((airData.pm10)/(50-0)));
+			indexperc += (1-((airData.pm10)/(50)));
             count++;
-            console.log("1" +airData.pm10);
 		}
         if(airData.no2!=undefined){
 			indexperc += (1-((airData.no2-20)/(70-20)));
             count++;
-            console.log("2" +airData.no2);
 		}
         if(airData.o3!=undefined){
 			indexperc += (1-((airData.o3-40)/(180-40)));
             count++;
-            console.log("3" +airData.o3);
 		}
         if(airData.so2!=undefined){
 			indexperc += (1-(airData.so2/60));
             count++;
-            console.log("4" +airData.so2);
 		}
         if(airData.co!=undefined){
 			indexperc += (1-(airData.co/100));
             count++;
-            console.log("5" +airData.co);
-		}/*
-        console.log(typeof indexperc);
-        console.log(indexperc);*/
+		}
 
-		var index   = (indexperc != 1       ? "Den Loftqualitéits-index ass: " + Math.round((100-((indexperc/count)*10))) + "%<br>"          :"error");
+		var index   = (indexperc 	!= 1	? "Den Loftqualitéits-index ass: " + Math.round((100-((indexperc/count)*10))) + "%<br>"          :"error");
 
-		var pm10 = (airData.pm10 != null ? "Den PM10 Gehalt ass: " + airData.pm10 + " µg/m^3<br>" : "");
-		var no2 = (airData.no2 != null ? "Den NO2 Gehalt ass: " + airData.no2 + " µg/m^3<br>" : "");
-		var o3 = (airData.o3 != null ? "Den O2 Gehalt ass: " + airData.o3 + " µg/m^3<br>" : "");
-		var so2 = (airData.so2 != null ? "Den SO2 Gehalt ass: " + airData.so2 + " µg/m^3<br>" : "");
-		var co = (airData.co != null ? "Den CO Gehalt ass: " + airData.co + " mg/m^3<br>" : "");
+		var pm10 	= (airData.pm10	!= null ? "Den PM10 Gehalt ass: " 	+ airData.pm10 	+ " µg/m^3<br>" : "");
+		var no2 	= (airData.no2 	!= null ? "Den NO2 Gehalt ass: " 	+ airData.no2 	+ " µg/m^3<br>" : "");
+		var o3 		= (airData.o3 	!= null ? "Den O2 Gehalt ass: " 	+ airData.o3 	+ " µg/m^3<br>" : "");
+		var so2 	= (airData.so2 	!= null ? "Den SO2 Gehalt ass: " 	+ airData.so2 	+ " µg/m^3<br>" : "");
+		var co 		= (airData.co 	!= null ? "Den CO Gehalt ass: " 	+ airData.co 	+ " mg/m^3<br>" : "");
 
 
 		airinfo.innerHTML = index + pm10 + no2 + o3 + so2 + co;
