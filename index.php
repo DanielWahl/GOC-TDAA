@@ -49,13 +49,10 @@
     <?php
         include(INC . "footer.php");
     ?>
-    
-    <script src="js/map.js"></script>   
-    <script>
-    function initMapindex(){
-        initMap();
-    }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0klnwhWakNF6e3pkI2hkYGvu-By8CZ7I&signed_in=true&callback=initMapindex" async defer></script>
+
+    <?php
+        include(INC . "JSincludes.php");
+    ?>
+
 </body>
 </html>

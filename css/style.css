@@ -33,7 +33,6 @@ a {
     color:white; 
     border: none;
     outline: none;
-    outline-style: none;
 }
 
 a:hover {
@@ -48,18 +47,36 @@ a:hover {
     display:none;
 }
 
-#cookie_alert {
-    position:relative;
+#cookie_alert_main {
+    position:absolute;
     width:100%;
     left:0;
     top:0;
     height:auto;
-    background-color:lightgoldenrodyellow;
-    padding-bottom: 5px;
+    background-color:darkgrey;
+    z-index: 200;
+}
+
+#cookie_alert {
+    position:relative;
+    width:80%;
+    margin: 0 auto;
+}
+
+#cookie_alert_middle {
+    margin-top:10px;
+    width:95%;
+    text-align: center;
+    float:left;
+}
+#cookie_alert_middle a{
+    color:black;
+    text-decoration: underline;
 }
 
 .closeButton {
-    font-size: 30px;
+    font-size: 50px;
+    float:left;
 }
 
 
@@ -160,6 +177,14 @@ section {
 
 #one {
     background-color: white;
+}
+
+section #one .middletext a {
+    color:grey;
+}
+
+section #one .middletext a:hover {
+    color:lightblue;
 }
 
 #logobig {
@@ -302,12 +327,7 @@ footer .middletext a {
 
 @media only screen and (max-width:720px) {
 
-    #cookie_alert {
-        position:fixed;
-        z-index: 105;
-        height:auto;
-    }
-    
+
     header {
         position: fixed;
         z-index: 101;
@@ -418,17 +438,3 @@ footer .middletext a {
 
 
  /***   MEADIA_close    ***/
-
-
-
-
-
-
-
-section #one .middletext a {
-    color:grey;
-}
-
-section #one .middletext a:hover {
-    color:lightblue;
-}

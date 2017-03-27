@@ -1,0 +1,13 @@
+var info 		= document.getElementById("info");
+var airinfo 	= document.getElementById("airinfo");
+var parkinfo 	= document.getElementById("parkinfo");
+var latitude;
+var longitude;
+var address;
+var mainlat;
+var mainlng;
+var map;
+var busData;
+var mapSV;
+var arBusses = [];
+var airData;
