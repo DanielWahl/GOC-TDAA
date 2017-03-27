@@ -1,18 +1,3 @@
-var info 		= document.getElementById("info");
-var airinfo 	= document.getElementById("airinfo");
-var parkinfo 	= document.getElementById("parkinfo");
-var latitude;
-var longitude;
-var address;
-var mainlat;
-var mainlng;
-var map;
-var busData;
-var mapSV;
-var arBusses = [];
-var airData;
-
-
 function updateAll() {
 	initStreetView();
 	getDataBus();
@@ -45,7 +30,24 @@ function geoFindMe() {
 	}
 
 	function error() {
-		info.innerHTML = "Unable to retrieve your location";
+		switch(error.code) {
+        //alert('example alert - enable GPS');
+
+        case error.PERMISSION_DENIED:
+            info.innerHTML = '<p>Dier hudd Geolocalisation ausgeschalt.</p>';
+            break;
+        case error.POSITION_UNAVAILABLE:
+            info.innerHTML = '<p>Et gin keng Informationen zu ärer Localisation.</p>';
+            break;
+        case error.TIMEOUT:
+            info.innerHTML = '<p>Time out! Äer Localisation huet ze laang gedauert!</p>';
+            break;
+        case error.UNKNOWN_ERROR:
+            info.innerHTML = '<p>En onbekannten Fehler ass opgetrueden!</p>';
+            break;
+        default:
+            info.innerHTML = '<p>En onbekannten Fehler ass opgetrueden!</p>';   
+        }
 	}
 
 
@@ -123,57 +125,6 @@ function resetStreetView() {
 	updateAll();
 }
 
-
-
-function getDataBus() {
-
-	var xml = new XMLHttpRequest();
-	xml.open("POST", "api/getBusstopsAndBusses.php");
-	xml.addEventListener("load", function (e) {
-		//console.log(e.target.response);
-		//info.innerHTML = e.target.response;
-		//console.log(jQuery.type(e.target.response));
-		//console.log(JSON.parse(e.target.response));
-		busData = JSON.parse(e.target.response);
-		getNrOfBusses();
-		setMarkers();
-
-	});
-	var data = new FormData();
-	data.append("lon", longitude);
-	data.append("lat", latitude);
-	xml.send(data);
-
-}
-
-
-
-
-function getNrOfBusses() {
-
-	var arBussesTemp = [];
-
-	for (var i = 0; i < busData.length; i++) {
-		for (var j = 0; j < busData[i].Busses.length; j++)
-			arBussesTemp.push(busData[i].Busses[j]);
-	}
-
-
-	for (var i = 0; i < arBussesTemp.length; i++) {
-		if (!isAlreadyExist(arBussesTemp[i]))
-			arBusses.push(arBussesTemp[i]);
-	}
-
-	info.innerHTML = "Et sin <u>" + arBusses.length + "</u> Buslinnen am Ëmkrees vun 500m.";
-}
-
-function isAlreadyExist(bus) {
-	for (var i = 0; i < arBusses.length; i++) {
-		if (arBusses[i] == bus)
-			return true;
-	}
-	return false;
-}
 
 
 function setMarkers() {
@@ -255,122 +206,9 @@ function setMarkers() {
 }
 
 
-function getParkings() {
-        let xml = new XMLHttpRequest();
-
-        xml.open("POST", "api/getNearCarParks.php");
-        xml.addEventListener("load", function(e) {
-
-            
-        	let parkings = JSON.parse(e.target.response);
-        	parkinfo.innerHTML = "";
-        	for(let p = 0; p < parkings.length; p++) {
-
-				var infowindow = new google.maps.InfoWindow({
-					content: ''
-				});
-
-
-				var marker = new google.maps.Marker({
-					position: {lat: parkings[p].Lon, lng: parkings[p].Lat},
-					label: 'P',
-					map: map,
-					title: 'Parking - ' + parkings[p].Name
-				});
-
-				google.maps.event.addListener(marker, 'click', (function (marker, p) {
-					return function () {
-						infowindow.setContent('<div id="content">' +
-							'<div id="siteNotice">' +
-							'</div>' +
-							'<h1 id="firstHeading" class="firstHeading">' + parkings[p].Name + '</h1>' +
-							'<div id="bodyContent">' +
-							'<p>Et sin  ' + parkings[p].FreeParkings + ' vun ' + parkings[p].TotalParkings + ' Parkingen frei!' +
-							'</p>' +
-								'<p>Distance: ' + Math.round(parkings[p].Distance) + "m" +
-								'</p>' +
-							'</div>' +
-							'</div>');
-						infowindow.open(map, marker);
-					}
-				})(marker, p));
-
-                parkinfo.innerHTML += parkings[p].Name+ "; ";
-			}
-			if(parkings.length > 0){
-				parkinfo.innerHTML = "Folgend Parkingen sin am Ëmkrees vun 1km: " + parkinfo.innerHTML;
-			}
-
-		});
-        let data = new FormData();
-        data.append("lon", latitude);
-        data.append("lat", longitude);
-
-        xml.send(data);
-
-}
-function bussesToString(busses) {
-	let string = "";
-	busses.sort();
-
-	for (let i = 0; i < busses.length; i++) {
-
-		string += (string == "" ? "" : ", ") + busses[i];
-
-	}
-	return string;
-}
 
 
 
-function getDataAir() {
-	var xml = new XMLHttpRequest();
-	xml.open("POST", "api/getNearestAirStation.php");
-	xml.addEventListener("load", function (e) {
-		airData = JSON.parse(e.target.response);
-
-		arValues = [airData.pm10, airData.no2, airData.o3, airData.so2, airData.co];
-
-		var indexperc = 1;
-        var count = 0;
-
-		//  (1-((airData.pm10-25)/(75-25))) * (1-((airData.no20-20)/(70-20))) * (1-((airData.o3-40)/(180-40))) * (1-(airData.so2/60)) * (1-(airData.co/200));
-        
-		if(airData.pm10!=undefined){
-			indexperc += (1-((airData.pm10)/(50)));
-            count++;
-		}
-        if(airData.no2!=undefined){
-			indexperc += (1-((airData.no2-20)/(70-20)));
-            count++;
-		}
-        if(airData.o3!=undefined){
-			indexperc += (1-((airData.o3-40)/(180-40)));
-            count++;
-		}
-        if(airData.so2!=undefined){
-			indexperc += (1-(airData.so2/60));
-            count++;
-		}
-        if(airData.co!=undefined){
-			indexperc += (1-(airData.co/100));
-            count++;
-		}
-
-		var index   = (indexperc 	!= 1	? "Den Loftqualitéits-index ass: " + Math.round((100-((indexperc/count)*10))) + "%<br>"          :"error");
-
-		var pm10 	= (airData.pm10	!= null ? "Den PM10 Gehalt ass: " 	+ airData.pm10 	+ " µg/m^3<br>" : "");
-		var no2 	= (airData.no2 	!= null ? "Den NO2 Gehalt ass: " 	+ airData.no2 	+ " µg/m^3<br>" : "");
-		var o3 		= (airData.o3 	!= null ? "Den O2 Gehalt ass: " 	+ airData.o3 	+ " µg/m^3<br>" : "");
-		var so2 	= (airData.so2 	!= null ? "Den SO2 Gehalt ass: " 	+ airData.so2 	+ " µg/m^3<br>" : "");
-		var co 		= (airData.co 	!= null ? "Den CO Gehalt ass: " 	+ airData.co 	+ " mg/m^3<br>" : "");
 
 
-		airinfo.innerHTML = index + pm10 + no2 + o3 + so2 + co;
 
-	});
-	var data = new FormData();
-	data.append("lon", longitude);
-	data.append("lat", latitude);
-	xml.send(data);
-}
