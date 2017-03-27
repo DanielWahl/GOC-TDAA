@@ -7,7 +7,7 @@
  */
 
 if(isset($_POST["setCookieCookie"])) {
-    setcookie("Save_Cookie", "Deng_Mamm_An_Den_Daniel_Sein_Poul", time() + (86400 * 30), "/", "goc.whale-cms.de", true);
+    setcookie("Save_Cookie", "GLS_COOKIE_SET", time() + (86400 * 30), "/", "goc.whale-cms.de", true);
     
     echo 1;
     exit;
